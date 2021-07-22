@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>메인페이지</title>
+</head>
+<link rel="stylesheet" href="main.css">
+<body>
+  <header>
+    <h1 style="position: absolute;top: 20px;left: 600px;">승민이의 개발일지</h2>
+    <button id="login" onclick="window.open('login.html')">로그인</button>
+  </header>
+  <section>
+    <article id="calculator">
+      <div id ="container">
+        <button onclick="myMove()" style="position: absolute; top: 0px; font-size: 20px; width: 100px; right: 0px">discription</button>
+        <button onclick="myMove1()" style="position: absolute; top: 40px; font-size: 20px; width: 100px; right: 0px">function</button>
+        <div id ="animate" class="gasan" style="position: absolute; left: 400px;">
+          <div id="box">
+            <br>
+            <p id="num1"></p>
+            <p id="op"></p>
+            <p id="num2"></p>
+            <p id="result"></p>
+            <p style="position: absolute;top: 0px; font-size: 20px; width: 700px;">한자리수만 계산합니다</p>
+          </div>
+          <table>
+            <tr>
+              <th id="H" onclick="Num(7)">7</th>
+              <th id="I" onclick="Num(8)">8</th>
+              <th id="J" onclick="Num(9)">9</th>
+              <th id="avg" onclick="Avg()"">/</th>
+            </tr>
+            <tr>
+              <th id="E" onclick="Num(4)">4</th>
+              <th id="F" onclick="Num(5)">5</th>
+              <th id="G" onclick="Num(6)">6</th>
+              <th id="gop" onclick="Multi()">x</th>
+            </tr>
+            <tr>
+              <th id="B" onclick="Num(1)">1</th>
+              <th id="C" onclick="Num(2)">2</th>
+              <th id="D" onclick="Num(3)">3</th>
+              <th id="min" onclick="Minus()">-</th>
+            </tr>
+            <tr>
+              <th id="A" onclick="Num(0)">0</th>
+              <th id="K" onclick="reset()">C</th>
+              <th id="L" onclick="reserch()">=</th>
+              <th id="plu" onclick="Plus()">+</th>
+            </tr>
+          </table>
+        </div>
+        <div id="discription" style="position: absolute; left: 1000px; display: none;">
+          <h3>계산기입니다</h3>
+          <p>작동방법</p>
+          <p>1. 숫자를 선택한다</p>
+          <p>2. 연산자를 선택한다</p>
+          <p>3. 숫자를 선택한다</p>
+          <p>4. =을 선택한다</p>
+          <br>
+          <p>주의사항</p>
+          <p>1. 숫자는 한자리 수만 계산합니다</p>
+          <p>2. 계산후 숫자가 남아있어도 계산되지 않습니다</p>
+          <p>주어진 작동방법을 모두 해야 됩니다</p>
+        </div>
+      </div>
+    </article>
+    <article id="diary">
+      <div id="container" style="border: 2px solid black; width: 700px; margin: 0 auto;">
+        <h1 style="font-size: 50px;">diary</h1>
+        <p>오늘 할 목록 입력</p>
+        <form action="">
+          <input type="text" id="subject" autofocus>
+          <button onclick="newRegister(); return false;">추가</button>
+        </form>
+        <hr>  
+        <p id="itemList"></p>  
+      </div>
+    </article>
+  </section>
+  <footer style="text-align: center; padding-top: 20px;">
+    <p>개발중</p>
+  </footer>
+  <script>
+    var pos = 400;
+  function myMove() {
+    if (pos == 400) {
+      let id = null;
+      const elem = document.getElementById("animate");   
+      clearInterval(id);
+      id = setInterval(frame, 5);
+      function frame() {
+        if (pos == 100) {
+          clearInterval(id);
+        } else {
+          pos--; 
+          elem.style.left = pos + "px"; 
+        }
+      }
+      setTimeout(function() {
+        var discription = document.getElementById("discription");
+        discription.style.display = "block";
+      }, 2000);
+    }
+  }
+  function myMove1() {
+    if(pos == 100) {
+      let id = null;
+      const elem = document.getElementById("animate");   
+      clearInterval(id);
+      id = setInterval(frame, 5);
+      function frame() {
+        if (pos == 400) {
+          clearInterval(id);
+        } else {
+          pos++; 
+          elem.style.left = pos + "px"; 
+        }
+      }
+      var discription = document.getElementById("discription");
+      discription.style.display = "none";
+    }
+  }
+  var num1 = null;
+    var num2 = null;
+    var sum = null;
+    var cnt = null;
+    var math;
+    function Num(n) {
+      if(num1 == null) {
+        cnt = 0;
+      }
+      if(cnt == 0){
+        num1 = n;
+        let a = document.getElementById("num1")
+        a.innerText=num1;
+        let b = document.getElementById("num2")
+        b.innerText=" ";
+        let c = document.getElementById("op")
+        c.innerText=" ";
+        let d = document.getElementById("result")
+        d.innerText=" ";
+      } else if (cnt == 1) {
+        num2 = n;
+        let a = document.getElementById("num2")
+        a.innerText=num2;
+      }
+    }
+    function Plus() {
+      if(cnt == 0){
+        math = "p"
+        let a = document.getElementById("op")
+        a.innerText="+";
+        cnt++;
+      } else {
+        alert("연산자는 한 번만 쓰세요");
+      }
+    }
+    function Multi() {
+      if(cnt == 0){
+        math = "m"
+        let a = document.getElementById("op")
+        a.innerText="X";
+        cnt++;
+      } else {
+        alert("연산자는 한 번만 쓰세요");
+      }
+    }
+    function Avg() {
+      if(cnt == 0){
+        math = "a"
+        let a = document.getElementById("op")
+        a.innerText="/";
+        cnt++;
+      } else {
+        alert("연산자는 한 번만 쓰세요");
+      }
+    }
+    function Minus() {
+      if(cnt == 0){
+        math = "M"
+        let a = document.getElementById("op")
+        a.innerText="-";
+        cnt++;
+      } else {
+        alert("연산자는 한 번만 쓰세요");
+      }
+    }
+    function reserch() {
+      let a = document.getElementById("result");
+      if(num2 != null) {
+        if(math == "p") {
+          sum = num1 + num2;
+        } else if (math == "m") {
+          sum = num1 * num2;
+        } else if (math == "M") {
+          sum = num1 - num2;
+        } else if (math == "a") {
+          sum = num1 / num2;
+        } else {
+          alert("연산자를 선택해주세요");
+          return;
+        }
+      } else {
+        alert("수를 입력해주세요");
+        return;
+      }
+      a.innerText=`= ${sum}`;
+      num1 = null;
+      num2 = null;
+      sum = null;
+    }
+    function reset() {
+      let a = document.getElementById("num1")
+      a.innerText=" ";
+      let b = document.getElementById("num2")
+      b.innerText=" ";
+      let c = document.getElementById("op")
+      c.innerText=" ";
+      let d = document.getElementById("result")
+      d.innerText=" ";
+      num1 = null;
+      num2 = null;
+      sum = null;
+      cnt = null;
+    }
+    function newRegister() {
+      var newItem = document.createElement("p"); 
+      var subject = document.querySelector("#subject");  
+      var newText = document.createTextNode(subject.value); 
+      newItem.appendChild(newText);   
+
+      var itemList = document.querySelector("#itemList");  
+      itemList.appendChild(newItem); 
+
+      subject.value="";
+    }
+  </script>
+</body>
+</html>
